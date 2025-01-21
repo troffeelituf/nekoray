@@ -4,8 +4,9 @@ mkdir qtsdk
 cd qtsdk
 
 echo "THIS IS THE START OF download_qtsdk_win.sh"
+echo "QT_ARCH is: $QT_ARCH"
 
-if [ "$ARCH" == "arm64" ]; then
+if [ "$QT_ARCH" == "arm64" ]; then
   if [ "$DL_QT_VER" == "5.15" ]; then
     # Download Qt 5.15 for Windows ARM64
     echo "QTARM64: We're going for the 5.15 version, but we'll download 6.7.2 anyways :)"
