@@ -1,11 +1,15 @@
 cmake_minimum_required(VERSION 3.5)
 
+message("CMAKE STEP 1")
+
 project(nekobox VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+message("CMAKE STEP 2")
 
 # WINDOWS PDB FILE
 if (WIN32)
@@ -15,19 +19,26 @@ if (WIN32)
     endif ()
 endif ()
 
+message("CMAKE STEP 3")
+
 # Find Qt
 if (NOT QT_VERSION_MAJOR)
     set(QT_VERSION_MAJOR 5)
 endif ()
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network Svg LinguistTools)
 
+message("CMAKE STEP 4")
+
 if (NKR_CROSS)
+    message("CMAKE STEP 5, IMPORTED_LOCATION: ${IMPORTED_LOCATION}")
     set_property(TARGET Qt5::moc PROPERTY IMPORTED_LOCATION /usr/bin/moc)
     set_property(TARGET Qt5::uic PROPERTY IMPORTED_LOCATION /usr/bin/uic)
     set_property(TARGET Qt5::rcc PROPERTY IMPORTED_LOCATION /usr/bin/rcc)
     set_property(TARGET Qt5::lrelease PROPERTY IMPORTED_LOCATION /usr/bin/lrelease)
     set_property(TARGET Qt5::lupdate PROPERTY IMPORTED_LOCATION /usr/bin/lupdate)
 endif ()
+
+message("CMAKE STEP 6")
 
 #### Platform Variables ####
 if (WIN32)
@@ -37,6 +48,7 @@ else ()
 endif ()
 
 #### default prefix path ####
+message("CMAKE STEP 7")
 
 if (NOT NKR_LIBS)
     if (NKR_PACKAGE)
@@ -46,9 +58,13 @@ if (NOT NKR_LIBS)
     endif ()
 endif ()
 
+message("CMAKE STEP 8")
+
 if (NOT NKR_DISABLE_LIBS)
     list(APPEND CMAKE_PREFIX_PATH ${NKR_LIBS})
 endif ()
+
+message("CMAKE STEP 9")
 
 message("[CMAKE_PREFIX_PATH] ${CMAKE_PREFIX_PATH}")
 
@@ -56,12 +72,16 @@ message("[CMAKE_PREFIX_PATH] ${CMAKE_PREFIX_PATH}")
 list(APPEND CMAKE_FIND_ROOT_PATH ${CMAKE_PREFIX_PATH})
 message("[CMAKE_FIND_ROOT_PATH] ${CMAKE_FIND_ROOT_PATH}")
 
+message("CMAKE STEP 10")
+
 #### NKR ####
 
 include("cmake/print.cmake")
 include("cmake/nkr.cmake")
 
 find_package(Threads)
+
+message("CMAKE STEP 11")
 
 #### NKR EXTERNAL ####
 
@@ -117,6 +137,9 @@ if (DBG_CMAKE)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
     set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CMAKE_COMMAND} -E time")
 endif ()
+
+
+message("CMAKE STEP 12")
 
 # Sources
 set(PROJECT_SOURCES
@@ -235,6 +258,7 @@ set(PROJECT_SOURCES
         ${QV2RAY_RC}
 )
 
+message("CMAKE STEP 13")
 # Qt exe
 if (${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(nekobox
@@ -259,6 +283,7 @@ else ()
     endif ()
 endif ()
 
+message("CMAKE STEP 14")
 # Target
 
 set_property(TARGET nekobox PROPERTY AUTOUIC ON)
@@ -289,6 +314,8 @@ configure_file(translations/translations.qrc ${CMAKE_BINARY_DIR} COPYONLY)
 target_sources(nekobox PRIVATE ${CMAKE_BINARY_DIR}/translations.qrc)
 
 # Target Link
+
+message("CMAKE STEP 15")
 
 target_link_libraries(nekobox PRIVATE
         Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::Svg
