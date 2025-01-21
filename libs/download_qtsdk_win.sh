@@ -40,8 +40,11 @@ curl -LSO https://github.com/troffeelituf/nekoray/releases/download/qt-runtime/Q
 
 7z x *.7z
 rm *.7z
+mkdir Q-t-arm
 mv Qt* Q-t-arm
 
 echo "DOWNLOADING QT ARM DONE"
 
 ls -l
+echo "-----------"
+ls Q-t-arm -l
