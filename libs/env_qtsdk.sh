@@ -9,6 +9,6 @@ export PKG_CONFIG_PATH=$Qt5_DIR/lib/pkgconfig
 export QT_PLUGIN_PATH=$Qt5_DIR/plugins
 export QML2_IMPORT_PATH=$Qt5_DIR/lib/qml
 
-
+export CMAKE_PREFIX_PATH=$Qt5_DIR/lib/cmake
 
 
