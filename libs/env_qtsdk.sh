@@ -10,17 +10,4 @@ export QML2_IMPORT_PATH=$Qt5_DIR/lib/qml
 
 
 
-echo "START CHECKING moc.exe ------------------------------------"
 
-# Set the original path of moc.exe (adjust this to the actual directory you expect)
-ORIGINAL_PATH="D:/a/nekoray/nekoray/qtsdk/Qt/./bin/moc.exe"
-
-
-WITHDOT="$Qt6_DIR/./bin/moc.exe"
-
-echo "checking with .: $WITHDOT..."
-$WITHDOT
-
-NODOT="$Qt6_DIR/bin/moc.exe"
-echo "checking without .: $NODOT..."
-$NODOT
