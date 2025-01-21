@@ -92,7 +92,15 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
         with:
           toolset: 14.2
-          arch: ${{ matrix.arch }}
+          arch: amd64_arm64
+
+      - name: Verify MSVC Compiler (cl.exe)
+        run: |
+          echo "Checking if cl.exe exists..."
+          cl.exe >nul 2>&1 || (echo "Error: cl.exe not found!" && exit 1)
+          echo "Finding cl.exe path..."
+          where cl.exe
+        shell: cmd
           
       - name: Windows - Download Custom Qt ${{ matrix.qt_version }} SDK
         shell: bash
