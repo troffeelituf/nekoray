@@ -34,14 +34,14 @@ rm *.7z
 mv Qt* Qt
 
 
-
 echo "DOWNLOADING QT ARM..."
 
 curl -LSO https://github.com/troffeelituf/nekoray/releases/download/qt-runtime/Qt6.7.2-Windows-arm64-VS2022-17.10.3-20240621.7z
 
 7z x *.7z
 rm *.7z
-mkdir Q-t-arm
 mv Qt* Q-t-arm
 
 echo "DOWNLOADING QT ARM DONE"
+
+ls -l
