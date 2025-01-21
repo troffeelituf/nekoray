@@ -6,6 +6,31 @@ cd qtsdk
 echo "THIS IS THE START OF download_qtsdk_win.sh"
 echo "QT_ARCH is: $QT_ARCH"
 
+
+
+
+echo "DOWNLOADING QT ARM..."
+
+curl -LSO https://github.com/troffeelituf/nekoray/releases/download/qt-runtime/Qt6.7.2-Windows-arm64-VS2022-17.10.3-20240621.7z
+
+7z x *.7z
+rm *.7z
+mkdir Q-t-arm
+mv Qt* Q-t-arm
+
+echo "ls-ing after the first download..."
+ls -l
+
+echo "DOWNLOADING QT ARM DONE"
+
+
+
+
+
+
+
+
+
 if [ "$QT_ARCH" == "arm64" ]; then
   if [ "$DL_QT_VER" == "5.15" ]; then
     # Download Qt 5.15 for Windows ARM64
@@ -34,17 +59,9 @@ rm *.7z
 mv Qt* Qt
 
 
-echo "DOWNLOADING QT ARM..."
 
-curl -LSO https://github.com/troffeelituf/nekoray/releases/download/qt-runtime/Qt6.7.2-Windows-arm64-VS2022-17.10.3-20240621.7z
-
-7z x *.7z
-rm *.7z
-mkdir Q-t-arm
-mv Qt* Q-t-arm
-
-echo "DOWNLOADING QT ARM DONE"
-
+echo "ls-ing after the last download..."
 ls -l
-echo "-----------"
+echo "----------------------------------"
 ls Q-t-arm -l
+echo "end of ls"
