@@ -161,11 +161,13 @@ jobs:
           CC: cl.exe
           CXX: cl.exe
         run: |
-          source libs/env_qtsdk.sh $PWD/qtsdk/Qt $PWD/qtsdk/Qt-arm
+          source libs/env_qtsdk.sh $PWD/qtsdk/Qt $PWD/qtsdk/Q-t-arm
           mkdir build
           cd build
           cmake -GNinja -DQT_VERSION_MAJOR=6 -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_SYSTEM_PROCESSOR=${{ matrix.arch }} \
+            -DQT_HOST_PATH=$PWD/qtsdk/Qt \
+            -DQT_TARGET_PATH=$PWD/qtsdk/Q-t-arm \
             ..
           ninja -j2
           cd ..
