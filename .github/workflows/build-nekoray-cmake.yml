@@ -161,7 +161,7 @@ jobs:
           CC: cl.exe
           CXX: cl.exe
         run: |
-          source libs/env_qtsdk.sh $PWD/qtsdk/Qt
+          source libs/env_qtsdk.sh $PWD/qtsdk/Qt $PWD/qtsdk/Qt-arm
           mkdir build
           cd build
           cmake -GNinja -DQT_VERSION_MAJOR=6 -DCMAKE_BUILD_TYPE=Release \
