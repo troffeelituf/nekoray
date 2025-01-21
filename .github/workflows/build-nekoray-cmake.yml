@@ -78,7 +78,7 @@ jobs:
             qt_version: "6.7"
       fail-fast: false
 
-    runs-on: windows-2022-arm64
+    runs-on: ${{ matrix.platform }}
     env:
       ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     steps:
