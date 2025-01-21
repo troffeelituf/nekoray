@@ -15,7 +15,6 @@ curl -LSO https://github.com/troffeelituf/nekoray/releases/download/qt-runtime/Q
 
 7z x *.7z
 rm *.7z
-mkdir Q-t-arm
 mv Qt* Q-t-arm
 
 echo "ls-ing after the first download..."
