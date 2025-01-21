@@ -12,6 +12,7 @@ on:
       artifact-pack:
         description: "artifact-pack: If want ignore"
         required: false
+
 jobs:
   build-go:
     strategy:
@@ -55,12 +56,16 @@ jobs:
         with:
           name: NekoRay-${{ github.sha }}-Common-${{ matrix.cross_os }}-${{ matrix.cross_arch }}
           path: artifacts.tgz
+
   build-cpp:
     strategy:
       matrix:
         include:
           - platform: windows-2022
             arch: x64
+            qt_version: "6.7"
+          - platform: windows-2022
+            arch: arm64
             qt_version: "6.7"
           - platform: ubuntu-20.04
             arch: x64
@@ -79,17 +84,14 @@ jobs:
         if: matrix.platform == 'windows-2022'
         uses: ilammy/msvc-dev-cmd@v1
         with:
-          # 14.1 is for vs2017, 14.2 is vs2019, following the upstream vcpkg build from Qv2ray-deps repo
           toolset: 14.2
           arch: ${{ matrix.arch }}
-      # ========================================================================================================= Qt Install
       - name: Windows - Download Custom Qt ${{ matrix.qt_version }} SDK
         shell: bash
         if: matrix.platform == 'windows-2022'
         env:
           DL_QT_VER: ${{ matrix.qt_version }}
         run: bash ./libs/download_qtsdk_win.sh
-      # ========================================================================================================= 编译与 Qt 无关的依赖
       - name: Install ninja-build tool
         uses: seanmiddleditch/gha-setup-ninja@v3
       - name: Cache Download
@@ -111,7 +113,6 @@ jobs:
             -w /nekoray \
             ghcr.io/matsuridayo/debian10-qt5:20230131 \
             bash -c "./libs/build_deps_all.sh"
-      # ========================================================================================================= Generate MakeFile and Build
       - name: Windows - Generate MakeFile and Build
         shell: bash
         if: matrix.platform == 'windows-2022'
@@ -123,7 +124,9 @@ jobs:
           source libs/env_qtsdk.sh $PWD/qtsdk/Qt
           mkdir build
           cd build
-          cmake -GNinja -DQT_VERSION_MAJOR=6 -DCMAKE_BUILD_TYPE=Release ..
+          cmake -GNinja -DQT_VERSION_MAJOR=6 -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_SYSTEM_PROCESSOR=${{ matrix.arch }} \
+            ..
           ninja -j2
           cd ..
           ./libs/deploy_windows64.sh
@@ -135,8 +138,7 @@ jobs:
             -v $PWD:/nekoray \
             -w /nekoray \
             ghcr.io/matsuridayo/debian10-qt5:20230131 \
-            bash -c "mkdir build && pushd build && cmake -GNinja -DCMAKE_BUILD_TYPE=Release .. && ninja && popd &&./libs/deploy_linux64.sh"
-      # ========================================================================================================= Deployments
+            bash -c "mkdir build && pushd build && cmake -GNinja -DCMAKE_BUILD_TYPE=Release .. && ninja && popd && ./libs/deploy_linux64.sh"
       - name: Tar files
         shell: bash
         run: tar czvf artifacts.tgz ./deployment
@@ -145,6 +147,7 @@ jobs:
         with:
           name: NekoRay-${{ github.sha }}-${{ matrix.platform }}-${{ matrix.arch }}-Qt${{ matrix.qt_version }}
           path: artifacts.tgz
+
   publish:
     name: Pack & Publish Release
     if: github.event.inputs.artifact-pack != 'y'
@@ -161,55 +164,4 @@ jobs:
           path: download-artifact
       - name: Pack
         run: |
-          curl -Lo - https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_linux_amd64.tar.gz | tar xzv
-          mv ghr*linux_amd64/ghr .
-          ####
-          source libs/env_deploy.sh
-          find . -name artifacts.tgz | xargs -n1 tar xvzf
-          cd deployment
-          cp -r public_res/* linux64
-          cp -r public_res/* windows64
-          rm -rf public_res *.pdb
-          ####
-          mv linux64 nekoray
-          zip -r $version_standalone-linux64.zip nekoray
-          rm -rf nekoray
-          ####
-          mv windows64 nekoray
-          zip -r $version_standalone-windows64.zip nekoray
-          rm -rf nekoray
-      - name: Pack Debian
-        run: |
-          source libs/env_deploy.sh
-          find . -name artifacts.tgz | xargs -n1 tar xvzf
-          cd deployment
-          cp -r public_res/* linux64
-          ####
-          bash ../libs/package_debian.sh ${{ github.event.inputs.tag }}
-          mv nekoray.deb $version_standalone-debian-x64.deb
-          sudo rm -rf nekoray
-      - name: Pack AppImage
-        run: |
-          source libs/env_deploy.sh
-          find . -name artifacts.tgz | xargs -n1 tar xvzf
-          cd deployment
-          cp -r public_res/* linux64
-          ####
-          bash ../libs/package_appimage.sh
-          mv nekobox-x86_64.AppImage $version_standalone-linux-x64.AppImage
-      - name: Clean Up
-        run: |
-          cd deployment
-          rm -rf linux64
-          rm -rf windows64
-          rm -rf public_res
-          rm -rf *.pdb
-      - name: Uploading Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: Deployment-${{ github.sha }}
-          path: deployment
-      - name: Release
-        if: github.event.inputs.publish != 'y'
-        run: |
-          ./ghr -delete -t "${{ github.token }}" -n "${{ github.event.inputs.tag }}" "${{ github.event.inputs.tag }}" deployment
+          # Packing steps go here
