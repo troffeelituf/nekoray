@@ -168,7 +168,7 @@ jobs:
             -DCMAKE_SYSTEM_PROCESSOR=${{ matrix.arch }} \
             -DQT_HOST_PATH=$PWD/qtsdk/Qt \
             -DQT_TARGET_PATH=$PWD/qtsdk/Q-t-arm \
-            -CMAKE_PREFIX_PATH=$PWD/qtsdk/Q-t-arm/lib/cmake \
+            -DCMAKE_PREFIX_PATH=$PWD/qtsdk/Q-t-arm/lib/cmake \
             -DQT_DEBUG_FIND_PACKAGE=ON \
             ..
           ninja -j2
