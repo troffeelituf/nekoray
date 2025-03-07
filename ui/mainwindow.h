@@ -135,6 +135,8 @@ private slots:
 
     void on_tabWidget_currentChanged(int index);
 
+    void on_menu_edit(int id = -1);
+
 private:
     Ui::MainWindow *ui;
     QSystemTrayIcon *tray;

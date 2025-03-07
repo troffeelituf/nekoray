@@ -9,6 +9,9 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+file(TO_NATIVE_PATH "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" CMAKE_RUNTIME_OUTPUT_DIRECTORY)
+
 message("CMAKE STEP 2")
 
 # WINDOWS PDB FILE
@@ -23,7 +26,7 @@ message("CMAKE STEP 3")
 
 # Find Qt
 if (NOT QT_VERSION_MAJOR)
-    set(QT_VERSION_MAJOR 5)
+    set(QT_VERSION_MAJOR 6)
 endif ()
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network Svg LinguistTools)
 
@@ -58,18 +61,23 @@ if (NOT NKR_LIBS)
     endif ()
 endif ()
 
+# Convert to native path format
+file(TO_NATIVE_PATH "${NKR_LIBS}" NKR_LIBS)
+
 message("CMAKE STEP 8")
 
 if (NOT NKR_DISABLE_LIBS)
     list(APPEND CMAKE_PREFIX_PATH ${NKR_LIBS})
 endif ()
 
-message("CMAKE STEP 9")
+# Convert to native path format
+file(TO_NATIVE_PATH "${CMAKE_PREFIX_PATH}" CMAKE_PREFIX_PATH)
 
-message("[CMAKE_PREFIX_PATH] ${CMAKE_PREFIX_PATH}")
+message("CMAKE STEP 9")
 
 # for some cross toolchain
 list(APPEND CMAKE_FIND_ROOT_PATH ${CMAKE_PREFIX_PATH})
+file(TO_NATIVE_PATH "${CMAKE_FIND_ROOT_PATH}" CMAKE_FIND_ROOT_PATH)
 message("[CMAKE_FIND_ROOT_PATH] ${CMAKE_FIND_ROOT_PATH}")
 
 message("CMAKE STEP 10")

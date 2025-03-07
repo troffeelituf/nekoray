@@ -29,8 +29,7 @@
          <string>Program</string>
         </property>
         <property name="icon">
-         <iconset theme="b-system-run">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset theme="b-system-run"/>
         </property>
         <property name="iconSize">
          <size>
@@ -39,10 +38,10 @@
          </size>
         </property>
         <property name="popupMode">
-         <enum>QToolButton::InstantPopup</enum>
+         <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
         </property>
         <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
+         <enum>Qt::ToolButtonStyle::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
@@ -52,8 +51,7 @@
          <string>Preferences</string>
         </property>
         <property name="icon">
-         <iconset theme="b-preferences">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset theme="b-preferences"/>
         </property>
         <property name="iconSize">
          <size>
@@ -62,10 +60,10 @@
          </size>
         </property>
         <property name="popupMode">
-         <enum>QToolButton::InstantPopup</enum>
+         <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
         </property>
         <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
+         <enum>Qt::ToolButtonStyle::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
@@ -75,8 +73,7 @@
          <string>Server</string>
         </property>
         <property name="icon">
-         <iconset theme="b-network-server">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset theme="b-network-server"/>
         </property>
         <property name="iconSize">
          <size>
@@ -85,10 +82,10 @@
          </size>
         </property>
         <property name="popupMode">
-         <enum>QToolButton::InstantPopup</enum>
+         <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
         </property>
         <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
+         <enum>Qt::ToolButtonStyle::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
@@ -98,8 +95,7 @@
          <string>Ads</string>
         </property>
         <property name="icon">
-         <iconset theme="b-internet-web-browser">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset theme="b-internet-web-browser"/>
         </property>
         <property name="iconSize">
          <size>
@@ -108,10 +104,10 @@
          </size>
         </property>
         <property name="popupMode">
-         <enum>QToolButton::InstantPopup</enum>
+         <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
         </property>
         <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
+         <enum>Qt::ToolButtonStyle::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
@@ -121,8 +117,7 @@
          <string>Document</string>
         </property>
         <property name="icon">
-         <iconset theme="b-dialog-question">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset theme="b-dialog-question"/>
         </property>
         <property name="iconSize">
          <size>
@@ -131,10 +126,10 @@
          </size>
         </property>
         <property name="popupMode">
-         <enum>QToolButton::InstantPopup</enum>
+         <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
         </property>
         <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
+         <enum>Qt::ToolButtonStyle::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
@@ -144,8 +139,7 @@
          <string>Update</string>
         </property>
         <property name="icon">
-         <iconset theme="b-system-software-update">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset theme="b-system-software-update"/>
         </property>
         <property name="iconSize">
          <size>
@@ -154,10 +148,10 @@
          </size>
         </property>
         <property name="popupMode">
-         <enum>QToolButton::InstantPopup</enum>
+         <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
         </property>
         <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
+         <enum>Qt::ToolButtonStyle::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
@@ -188,7 +182,7 @@
       <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -211,10 +205,10 @@
          <string>URL Test</string>
         </property>
         <property name="popupMode">
-         <enum>QToolButton::InstantPopup</enum>
+         <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
         </property>
         <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
+         <enum>Qt::ToolButtonStyle::ToolButtonTextUnderIcon</enum>
         </property>
        </widget>
       </item>
@@ -223,7 +217,7 @@
     <item>
      <widget class="QSplitter" name="splitter">
       <property name="orientation">
-       <enum>Qt::Vertical</enum>
+       <enum>Qt::Orientation::Vertical</enum>
       </property>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
@@ -255,19 +249,19 @@
          <item row="0" column="0">
           <widget class="MyTableWidget" name="proxyListTable">
            <property name="contextMenuPolicy">
-            <enum>Qt::CustomContextMenu</enum>
+            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
            </property>
            <property name="editTriggers">
-            <set>QAbstractItemView::NoEditTriggers</set>
+            <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
            </property>
            <property name="alternatingRowColors">
             <bool>true</bool>
            </property>
            <property name="selectionBehavior">
-            <enum>QAbstractItemView::SelectRows</enum>
+            <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
            </property>
            <property name="horizontalScrollMode">
-            <enum>QAbstractItemView::ScrollPerPixel</enum>
+            <enum>QAbstractItemView::ScrollMode::ScrollPerPixel</enum>
            </property>
            <property name="wordWrap">
             <bool>false</bool>
@@ -344,7 +338,7 @@
             <item>
              <widget class="QTextBrowser" name="masterLogBrowser">
               <property name="contextMenuPolicy">
-               <enum>Qt::CustomContextMenu</enum>
+               <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
               </property>
               <property name="openLinks">
                <bool>false</bool>
@@ -376,19 +370,19 @@
             <item>
              <widget class="QTableWidget" name="tableWidget_conn">
               <property name="contextMenuPolicy">
-               <enum>Qt::CustomContextMenu</enum>
+               <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
               </property>
               <property name="editTriggers">
-               <set>QAbstractItemView::NoEditTriggers</set>
+               <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
               </property>
               <property name="selectionBehavior">
-               <enum>QAbstractItemView::SelectRows</enum>
+               <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
               </property>
               <property name="verticalScrollMode">
-               <enum>QAbstractItemView::ScrollPerPixel</enum>
+               <enum>QAbstractItemView::ScrollMode::ScrollPerPixel</enum>
               </property>
               <property name="horizontalScrollMode">
-               <enum>QAbstractItemView::ScrollPerPixel</enum>
+               <enum>QAbstractItemView::ScrollMode::ScrollPerPixel</enum>
               </property>
               <attribute name="horizontalHeaderHighlightSections">
                <bool>false</bool>
@@ -430,10 +424,10 @@
       <item>
        <spacer name="horizontalSpacer_2">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeType">
-         <enum>QSizePolicy::Maximum</enum>
+         <enum>QSizePolicy::Policy::Maximum</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -467,7 +461,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>32</height>
+     <height>33</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_program">
@@ -571,6 +565,7 @@
     <addaction name="menu_stop"/>
     <addaction name="separator"/>
     <addaction name="menu_select_all"/>
+    <addaction name="menu_edit"/>
     <addaction name="menu_move"/>
     <addaction name="menu_clone"/>
     <addaction name="menu_reset_traffic"/>
@@ -809,6 +804,11 @@
    </property>
    <property name="shortcut">
     <string notr="true">Ctrl+A</string>
+   </property>
+  </action>
+  <action name="menu_edit">
+   <property name="text">
+    <string>Edit</string>
    </property>
   </action>
   <action name="menu_copy_links_nkr">

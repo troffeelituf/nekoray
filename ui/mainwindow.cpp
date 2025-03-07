@@ -66,6 +66,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     //
     connect(ui->menu_start, &QAction::triggered, this, [=]() { neko_start(); });
+    connect(ui->menu_edit, &QAction::triggered, this, [=]() { on_menu_edit(); });
     connect(ui->menu_stop, &QAction::triggered, this, [=]() { neko_stop(); });
     connect(ui->tabWidget->tabBar(), &QTabBar::tabMoved, this, [=](int from, int to) {
         // use tabData to track tab & gid
@@ -1081,12 +1082,37 @@ void MainWindow::refresh_proxy_list_impl_refresh_data(const int &id) {
 
 void MainWindow::on_proxyListTable_itemDoubleClicked(QTableWidgetItem *item) {
     auto id = item->data(114514).toInt();
+
     if (select_mode) {
         emit profile_selected(id);
         select_mode = false;
         refresh_status();
         return;
     }
+
+    if (id == NekoGui::dataStore->started_id) {
+        neko_stop();
+    } else {
+        neko_start(id);
+    }
+
+}
+
+void MainWindow::on_menu_edit(int id) {
+
+    auto ents = get_now_selected_list();
+    auto ent = (id < 0 && !ents.isEmpty()) ? ents.first() : NekoGui::profileManager->GetProfile(id);
+    if (ent == nullptr) return;
+
+    if (select_mode) {
+        emit profile_selected(ent->id);
+        select_mode = false;
+        refresh_status();
+        return;
+    }
+
+    id = ent->id;
+
     auto dialog = new DialogEditProfile("", id, this);
     connect(dialog, &QDialog::finished, dialog, &QDialog::deleteLater);
 }
